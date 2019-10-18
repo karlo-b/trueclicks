@@ -1,11 +1,11 @@
 // Colors
 $base-color-alt:			#f5f5f7;
-$base-color:				darken($base-color-alt, 8%);
+$base-color:				#555e64;
 
-$brand-color:				#021424;
+$brand-color:				#0e1b22;
 $brand-color-alt:			lighten($brand-color, 20%);
 
-$accent-color:				#0178e0;
+$accent-color:				#3a00ff;
 $accent-color-alt:			lighten($accent-color,15%);
 
 $secondary-color:			#4fe190;
@@ -14,8 +14,8 @@ $secondary-color-alt:		#004170;
 $yellow:					#e8bb1a;
 
 // Fonts
-$base-font:					'Poppins', sans-serif;
-$head-font:					'Poppins', sans-serif;
+$base-font:					'Gilroy', sans-serif;
+$head-font:					'Gilroy', sans-serif;
 
 // Font Sizes
 $tiny-fontsize:				14px;
@@ -29,9 +29,9 @@ $base-lineheight:			1.7;
 $head-lineheight:			1.2;
 
 // Font Weights
-$light:						200;
-$base-fontweight:			300;
-$semibold:					500;
+$light:						300;
+$base-fontweight:			normal;
+$semibold:					600;
 $bold:						700;
 
 // Margins
@@ -44,9 +44,9 @@ $margin-small:				10px;
 // Paddings
 $padding:					20px;
 $padding-xlarge:			120px;
-$padding-large:				80px;
-$padding-medium:			40px;
-$padding-small:				20px;
+$padding-large:				64px;
+$padding-medium:			56px;
+$padding-small:				24px;
 
 // Grid Spacing
 $grid-xlarge:				45px;
@@ -64,10 +64,10 @@ $breakpoint3:				1200px;
 
 // Mixins
 @mixin border-radius($radius) {
--moz-border-radius:			$radius;
--webkit-border-radius:		$radius;
--ms-border-radius:			$radius;
-border-radius:				$radius;
+-moz-border-radius:			$radius!important;
+-webkit-border-radius:		$radius!important;
+-ms-border-radius:			$radius!important;
+border-radius:				$radius!important;
 };
 
 @mixin transition($transition) {

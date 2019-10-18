@@ -18,14 +18,13 @@ align-items: center;
 
 .xt-navigation {
 	.xt-grid-collapse {
-		display: table;
+		display: flex;
 		width: 100%;
+		align-items: center;
 	}
 	.xt-logo-container,
 	.xt-menu-container {
-		display: table-cell;
-		float: none;
-		vertical-align: middle;
+		display: block;
 	}
 }
 

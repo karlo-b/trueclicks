@@ -99,7 +99,7 @@ function xtmodalpopup_integrateWithVC() {
 		'class' => 'xt_modal_popup',
 		'show_settings_on_create' => false,
 		'category' => __( 'XT', 'xstream'),
-		'icon' => get_template_directory_uri() . '/img/fav.jpg',
+		'icon' => get_template_directory_uri() . '/img/icon.png',
 		'admin_label'=> false,
 		'params' => array(
 			array(
@@ -193,7 +193,7 @@ function imagecontentblock_integrateWithVC() {
 		'class' => 'image_content_block',
 		'show_settings_on_create' => true,
 		'category' => __( 'XT', 'xstream'),
-		'icon' => get_template_directory_uri() . '/img/fav.jpg',
+		'icon' => get_template_directory_uri() . '/img/icon.png',
 		'params' => array(
 			array(
 				'type' => 'attach_image',
@@ -337,7 +337,7 @@ function bloggrid_integrateWithVC() {
 		'name' => __( 'Blog Grid', 'xstream' ),
 		'base' => 'blog-grid',
 		'class' => 'blog_grid',
-	 	'icon' => get_template_directory_uri() . '/img/fav.jpg',
+	 	'icon' => get_template_directory_uri() . '/img/icon.png',
 		'show_settings_on_create' => true,
 		'category' => __( 'XT', 'xstream'),
 		'params' => array(
@@ -509,7 +509,7 @@ function videoslider_integrateWithVC() {
 		'base' => 'video-slider',
 		'class' => 'videoslider',
 		'show_settings_on_create' => false,
-		'icon' => get_template_directory_uri() . '/img/fav.jpg',
+		'icon' => get_template_directory_uri() . '/img/icon.png',
 		'category' => __( 'XT', 'xstream'),
 		'params' => array(
 			array(
@@ -594,7 +594,7 @@ function displayvideos_integrateWithVC() {
 		'base' => 'display_videos',
 		'show_settings_on_create' => true,
 		'category' => __( 'XT', 'xstream'),
-		'icon' => get_template_directory_uri() . '/img/fav.jpg',
+		'icon' => get_template_directory_uri() . '/img/icon.png',
 		'params' => array(
 			array(
 				'type' => 'textfield',
@@ -626,4 +626,118 @@ function displayvideos_integrateWithVC() {
 			),
 		)
 	) );
+}
+
+
+
+vc_map( array(
+"name" => __("Tabs Wrapper", "xstream"),
+"base" => "tabs_wrapper",
+'icon' => get_template_directory_uri() . '/img/icon.png',
+'category' =>__('XT', 'xstream'),
+"as_parent" => array('only' => 'tab_item'), // Use only|except attributes to limit child shortcodes (separate multiple values with comma)
+"content_element" => true,
+"show_settings_on_create" => false,
+"is_container" => true,
+"js_view" => 'VcColumnView'
+) );
+
+
+function tabs_wrapper_block_function( $atts, $content ) {
+extract( shortcode_atts( array(
+'el_class' => ''
+), $atts ) );
+ob_start();
+echo '<section class="team-wrapper">
+'.do_shortcode($content).'
+</div>
+</div>
+</section>';
+$content = ob_get_contents();
+ob_get_clean();
+return $content;
+}
+ add_shortcode( 'tabs_wrapper', 'tabs_wrapper_block_function' );
+
+ vc_map( array(
+"name" => __("Tab Item", "xstream"),
+"base" => "tab_item",
+'icon' => get_template_directory_uri() . '/img/icon.png',
+"category" =>__('XT', 'xstream'),
+"content_element" => true,
+"as_child" => array('only' => 'tabs_wrapper'), // Use only|except attributes to limit parent (separate multiple values with comma)
+"params" => array(
+// add params same as with any other content element
+array(
+"type" => "textfield",
+"heading" => __("Name", "xstream"),
+"param_name" => "name",
+"description" => __("Name", "xstream"),
+"holder" => 'div',
+"class" => 'text-class',
+),
+array(
+"type" => "textfield",
+"heading" => __("Status", "xstream"),
+"param_name" => "status",
+"description" => __("Status", "xstream"),
+"holder" => 'div',
+"class" => 'text-class',
+)
+,array(
+"type" => "attach_image",
+"heading" => __("Profile Image", "xstream"),
+"param_name" => "profile_image",
+"description" => __("Profile Image", "xstream")
+)
+,array(
+"type" => "textarea",
+"heading" => __("Description", "xstream"),
+"param_name" => "description",
+"description" => __("Description", "xstream")
+)
+)
+) );
+
+function tab_item_block_function( $atts, $content ) {
+    extract( shortcode_atts( array(
+        'name' =>  '',
+        'status' =>  '',
+        'profile_image' =>  '',
+        'description' =>  ''
+    ), $atts ) );
+
+    ob_start();
+    ?>
+    	<div class="col-md-3 col-sm-4">
+        <div class="team-thumb">
+            <div class="team-img">
+            	<?php $banner = wp_get_attachment_url($profile_image, 'full');  ?>
+              <img src="<?php echo $banner ; ?>" alt="">
+            </div>
+            <div class="team-caption">
+                <div class="team-header">
+                    <h3 class="name"><?php echo $name; ?></h3>
+                    <h4 class="post-title"><?php echo $status; ?></h4>
+                </div>
+                <p><?php echo $description; ?></p>
+            </div>
+        </div>
+      </div>
+    <?php
+    $content = ob_get_contents();
+  
+    ob_get_clean();
+
+    return $content;
+}
+add_shortcode( 'tab_item', 'tab_item_block_function' );
+
+if ( class_exists( 'WPBakeryShortCodesContainer' ) ) {
+class WPBakeryShortCode_Tabs_Wrapper extends WPBakeryShortCodesContainer {
+}
+}
+if ( class_exists( 'WPBakeryShortCode' ) ) {
+class WPBakeryShortCode_tab_item extends WPBakeryShortCode {
+}
 }

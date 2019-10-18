@@ -1059,17 +1059,6 @@ $excerpt = trim(preg_replace( '/\s+/', ' ', $excerpt));
 return $excerpt;
 }
 
-add_action( 'xt_content_open', 'single_brands_row' );
-function single_brands_row(){
-	if (is_single()){
-		if ( is_active_sidebar( 'single-brands-row' ) ){
-			echo '<div class="xt-container-full-width">';
-			dynamic_sidebar('single-brands-row');
-			echo '</div>';
-		}
-	}
-}
-
 // Add author contact methods
 
 

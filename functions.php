@@ -105,8 +105,8 @@ function xt_sidebars() {
 		'after_title'   => '</h4>'
 	) );
 	register_sidebar( array(
-		'name'          => __( 'Post Brands Row', 'xt-framework' ),
-		'id'            => 'single-brands-row',
+		'name'          => __( 'Header Buttons', 'xt-framework' ),
+		'id'            => 'header-buttons',
 		'before_widget'	=> '<div id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="xt-widgettitle">',
@@ -202,7 +202,7 @@ function wpb_custom_logo() {
 echo '
 <style type="text/css">
 #wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
-background-image: url(' . get_bloginfo('stylesheet_directory') . '/img/fav.jpg) !important;
+background-image: url(' . get_bloginfo('stylesheet_directory') . '/img/icon.png) !important;
 background-size:100%;
 background-position: center;
 color:rgba(0, 0, 0, 0);

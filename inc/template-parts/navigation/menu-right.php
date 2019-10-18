@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</div>
 
-		<div class="xt-3-4 xt-menu-container">
+		<div class="xt-1-2 xt-menu-container">
 
 			<?php do_action( 'xt_before_main_menu' ); ?>
 
@@ -36,6 +36,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</nav>
 
 			<?php do_action( 'xt_after_main_menu' ); ?>
+
+		</div>
+
+		<div class="xt-1-4 header-buttons">
+
+			<?php dynamic_sidebar('header-buttons');?>
 
 		</div>
 

@@ -92,6 +92,8 @@ if ( ! empty( $full_width ) ) {
 		$class_inner = "xt-container-full-width";
 	}
 	$after_output .= '<div class="vc_row-full-width vc_clearfix"></div>';
+}else{
+	$css_classes[] = 'vc_row-default-width';
 }
 
 if ( ! empty( $full_height ) ) {
