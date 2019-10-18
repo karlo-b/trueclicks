@@ -337,7 +337,7 @@ template {
 /* Icon Font */
 @font-face {
   font-family: "xt-framework";
-  src: url("fonts/xt-framework.woff2") format("woff2"), url("fonts/xt-framework.woff") format("woff"), url("fonts/xt-framework.ttf") format("truetype"), url("fonts/xt-framework.eot");
+  src: url("fonts/xt-framework.woff") format("woff"), url("fonts/xt-framework.ttf") format("truetype"), url("fonts/xt-framework.eot");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -444,7 +444,7 @@ template {
 }
 
 .xtf-facebook:before {
-  content: "\f10e";
+  content: "\f39e";
 }
 
 .xtf-twitter:before {
@@ -464,7 +464,7 @@ template {
 }
 
 .xtf-linkedin:before {
-  content: "\f113";
+  content: "\f0e1";
 }
 
 .xtf-vimeo:before {
@@ -1254,7 +1254,8 @@ table thead th,
 
 .xt-padding-none,
 .xt-remove-padding {
-  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .xt-padding-top-none {
@@ -3475,6 +3476,7 @@ li.tab-current:first-child:before {
   margin-left: 67%;
   position: relative;
   top: -170px;
+  height: 0;
 }
 
 .xt-stats-row .vc_col-sm-3 .vc_column-inner {
@@ -3706,6 +3708,8 @@ li.tab-current:first-child:before {
   -webkit-border-radius: 16px !important;
   -ms-border-radius: 16px !important;
   border-radius: 16px !important;
+  left: 0;
+  top: 0;
 }
 
 .xt-testimonials-row > .xt-container .xt-logos-row img {
@@ -3880,6 +3884,7 @@ li.tab-current:first-child:before {
   text-align: center;
   position: relative;
   margin-right: 8px;
+  font-size: 20px;
 }
 
 .xt-social-icons a i {
@@ -3887,4 +3892,8 @@ li.tab-current:first-child:before {
   opacity: 1;
   position: relative;
   top: 5px;
+}
+
+.xt-stats-row {
+  padding-top: 0px !important;
 }

@@ -1,8 +1,7 @@
 /* Icon Font */
 @font-face {
   font-family: "xt-framework";
-  src: url("fonts/xt-framework.woff2") format("woff2"),
-    url("fonts/xt-framework.woff") format("woff"),
+  src: url("fonts/xt-framework.woff") format("woff"),
     url("fonts/xt-framework.ttf") format("truetype"),
     url("fonts/xt-framework.eot");
   font-weight: normal;
@@ -112,7 +111,7 @@
   content: "\f10d";
 }
 .xtf-facebook:before {
-  content: "\f10e";
+  content: "\f39e";
 }
 .xtf-twitter:before {
   content: "\f10f";
@@ -127,7 +126,7 @@
   content: "\f112";
 }
 .xtf-linkedin:before {
-  content: "\f113";
+  content: "\f0e1";
 }
 .xtf-vimeo:before {
   content: "\f114";
@@ -869,7 +868,8 @@ table thead th,
 // Remove Paddings
 .xt-padding-none,
 .xt-remove-padding {
-  padding: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom:  0 !important;
 }
 .xt-padding-top-none {
   padding-top: 0 !important;

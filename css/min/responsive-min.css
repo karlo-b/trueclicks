@@ -280,6 +280,32 @@
   }
 }
 
+@media only screen and (max-width: 1300px) {
+  .xt-navigation .xt-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .vc_row.vc_row-default-width {
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+  .xt-inner-bg > .xt-container {
+    max-width: 96%;
+  }
+}
+
+@media only screen and (max-width: 1240px) {
+  .xt-logo-container {
+    width: 20%;
+  }
+  .header-buttons {
+    width: 30%;
+  }
+  .xt-navigation .xt-menu-container {
+    width: 50%;
+  }
+}
+
 /* From 1200 | Large Screen & Bigger */
 @media (min-width: 1201px) {
   /* Grid */

@@ -274,6 +274,7 @@
   margin-left: 67%;
   position: relative;
   top: -170px;
+  height: 0;
 }
 .xt-stats-row .vc_col-sm-3 .vc_column-inner {
   @include border-radius(16px);
@@ -468,6 +469,8 @@
     width: 100%;
     height: 100%;
     @include border-radius(16px);
+    left: 0;
+    top: 0;
   }
   .xt-logos-row img {
     opacity: 0.64;
@@ -632,10 +635,15 @@ max-width: 440px;
   text-align: center;
   position: relative;
   margin-right: 8px;
+      font-size: 20px;
   i{
     color: #fff;
     opacity: 1;
     position: relative;
     top: 5px;
   }
+}
+
+.xt-stats-row{
+  padding-top: 0px !important;
 }
