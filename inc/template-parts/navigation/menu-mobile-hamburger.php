@@ -46,7 +46,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				'depth'				=>		4,
 				'fallback_cb'		=>		'xt_mobile_menu_fallback'
 			)); ?>
-
+		<div class="header-buttons">
+			<?php dynamic_sidebar('header-buttons');?>
+		</div>
 		</nav>
 
 	</div>
