@@ -7,7 +7,10 @@
   padding-left: 0;
   padding-right: 0;
 }
-
+.xt-menu .sub-menu li a{
+      padding: 15px 20px;
+      font-size: 14px;
+}
 .xt-menu-right .xt-menu {
   float: none;
   justify-content: center;
@@ -57,6 +60,26 @@
 .vc_btn3-color-purple {
   background: rgba(58, 0, 255, 0.1) !important;
   color: $accent-color !important;
+}
+.xt-fullwidth, .xt-fullwidth a{
+  display: block!important;
+  width: 100%;
+}
+.vc_btn3-color-pink{
+  background: #FF76DF !important;
+  color: #fff !important;
+}
+.vc_btn3-color-pink:hover{
+  background: #FF63DB !important;
+  color: #fff !important;
+}
+.vc_btn3-color-default{
+  background: rgba(58, 0, 255, 0.1) !important;
+  color: #3A00FF!important;
+}
+.vc_btn3-color-default:hover{
+   background:#4A15FF!important;
+   color: #fff!important;
 }
 .vc_btn3-color-purple:before {
   background: url(img/right-blue.svg) no-repeat !important;
@@ -851,4 +874,177 @@ color: $accent-color;
   width: 40% !important;
   margin-left: 0;
   margin-right: auto;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 39px;
+    height: 39px;
+    left: -17px;
+    top: -17px;
+     box-shadow:none !important;
+    border:none;
+    background:transparent !important;
+}
+.noUi-touch-area {
+    height: 100%;
+    width: 100%;
+    background: #3A00FF;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    box-shadow: 0 4px 11px 3px rgba(57,26,161,0.29);
+    outline:none !important;
+}
+.noUi-handle:after{
+  display:none;
+} 
+.noUi-handle:before{
+background:#FF76DF;
+width: 16px;
+    height: 16px;
+     -webkit-border-radius: 50%!important;
+    -moz-border-radius: 50%!important;
+    border-radius: 50%!important;
+    position: absolute;
+top: 50%; 
+left: 50%; 
+transform: translate(-50%, -50%); 
+}
+.noUi-connect {
+    background: #FF76DF;
+}
+.noUi-target {
+    background: #EBE5FF;
+    border-radius: 30px;
+    border: none;
+    box-shadow: none;
+    height: 8px;
+}
+.noUi-connects {
+    border-radius: 30px;
+}
+.noUi-horizontal .noUi-handle{
+  outline:none !important;
+}
+.noUi-horizontal .noUi-tooltip {
+    bottom: -180%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #3A00FF;
+    color:#fff;
+    padding:10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.noUi-horizontal .noUi-tooltip:before{
+  content:"";
+  width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 10px 10px 10px;
+border-color: transparent transparent #3c00ff transparent;
+position: absolute;
+top: -6px; 
+left: 50%; 
+transform: translate(-50%,0);
+}
+.xt-yearly  > .vc_column-inner, 
+.xt-monthly > .vc_column-inner{
+  -webkit-border-radius: 16px;
+-moz-border-radius: 16px;
+border-radius: 16px;
+padding: 24px!important;
+}
+.xt-yearly  > .vc_column-inner > .wpb_wrapper{
+  position: relative;
+}
+.xt-show-above{
+display:none;
+}
+.xt-save{
+  background: #FF76DF;
+  -webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+color:#fff;
+max-width: max-content;
+padding: 0 10px;
+position: absolute;
+right: 0;
+}
+.xt-yearly h3, .xt-monthly h3{
+  font-size: 32px;
+  font-weight: bold;
+  color: #0E1B22;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 40px;
+  opacity: 1;
+  margin-bottom: 10px!important;
+}
+.xt-yearly h3{
+ color: #FFFFFF;
+}
+.xt-plan-desc{
+  opacity: 0.8;
+font-size: 16px;
+color: #FFFFFF;
+letter-spacing: 0;
+text-align: center;
+line-height: 18px;
+font-weight: 500;
+}
+.xt-price .large{
+font-size: 64px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff76df;
+}
+.xt-price {
+  margin: 20px 0;
+}
+.xt-price .large .small{
+   font-size: 26px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.69;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ff76df;
+}
+.xt-monthly .large .small,
+.xt-monthly .xt-price .large{
+  color: #3A00FF;
+}
+.xt-yearly  .xt-show-above h2{
+  color: #ff76df;
+}
+.xt-monthly  .xt-show-above h2{
+  color: #3A00FF;
+}
+.xt-monthly .xt-bottom {
+  position: absolute;
+  width: 100%;
+  bottom: -20px; 
+  left: 50%; 
+  transform: translate(-50%, 0%);
+  opacity: 0.6;
+font-size: 20px;
+color: #3A00FF;
+letter-spacing: 0;
+text-align: center;
+line-height: 26px;
+font-weight: bold;
+}
+.size-20{
+  font-size: 20px;
+}
+.xt-dark-font p{ 
+ color: #0E1B22;
 }

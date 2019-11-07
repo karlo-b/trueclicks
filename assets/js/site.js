@@ -453,4 +453,138 @@
 
 	$('.xt-image-block p:empty').remove();
 
+	var rangeSlider = document.getElementById('range-slider');
+	noUiSlider.create(rangeSlider, {
+		start: 1000,
+		connect: 'lower',
+		direction: 'ltr',
+		step: 1000,
+		snap: true,
+		format: wNumb({
+			decimals: 0,
+			prefix: '$',
+			mark: '.',
+	        thousand: ',',
+		}),
+		range: {
+			'min': [5000],
+			'9%': [10000],
+			'18%': [25000],
+			'27%': [50000],
+			'36%': [100000],
+			'45%': [250000],
+			'55%': [500000],
+			'64%': [750000],
+			'73%': [1000000],
+			'82%': [2000000],
+			'91%': [3000000],
+			'max': [3500000],
+		},
+		tooltips: true,
+	});
+
+rangeSlider.noUiSlider.on('update', function( values, handle ){
+		 var billedYearly = $('.billed-yearly');
+		 var saveYearly = $('.save-yearly');
+		 var yearlyPrice = $('.yearly-price');
+		 var monthlyPrice = $('.monthly-price');
+
+var moneyFormat = wNumb({
+	mark: '.',
+	thousand: ',',
+	prefix: '$',
+});
+	
+		 console.log(values[0]);
+	if(values[0] =='$5,000'){
+		billedYearly.html(moneyFormat.to(468));
+		saveYearly.html(moneyFormat.to(120));
+		yearlyPrice.html(moneyFormat.to(39));
+		monthlyPrice.html(moneyFormat.to(49));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$10,000'){
+		billedYearly.html(moneyFormat.to(756));
+		saveYearly.html(moneyFormat.to(192));
+		yearlyPrice.html(moneyFormat.to(63));
+		monthlyPrice.html(moneyFormat.to(79));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$25,000'){
+		billedYearly.html(moneyFormat.to(948));
+		saveYearly.html(moneyFormat.to(240));
+		yearlyPrice.html(moneyFormat.to(79));
+		monthlyPrice.html(moneyFormat.to(99));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$50,000'){
+		billedYearly.html(moneyFormat.to(948));
+		saveYearly.html(moneyFormat.to(1428));
+		yearlyPrice.html(moneyFormat.to(360));
+		monthlyPrice.html(moneyFormat.to(148));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$100,000'){
+		billedYearly.html(moneyFormat.to(2388));
+		saveYearly.html(moneyFormat.to(600));
+		yearlyPrice.html(moneyFormat.to(199));
+		monthlyPrice.html(moneyFormat.to(249));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$250,000'){
+		billedYearly.html(moneyFormat.to(3348));
+		saveYearly.html(moneyFormat.to(840));
+		yearlyPrice.html(moneyFormat.to(279));
+		monthlyPrice.html(moneyFormat.to(349));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$500,000'){
+		billedYearly.html(moneyFormat.to(4788));
+		saveYearly.html(moneyFormat.to(1200));
+		yearlyPrice.html(moneyFormat.to(399));
+		monthlyPrice.html(moneyFormat.to(499));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$750,000'){
+		billedYearly.html(moneyFormat.to(6708));
+		saveYearly.html(moneyFormat.to(1680));
+		yearlyPrice.html(moneyFormat.to(599));
+		monthlyPrice.html(moneyFormat.to(699));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$1,000,000'){
+		billedYearly.html(moneyFormat.to(8628));
+		saveYearly.html(moneyFormat.to(2160));
+		yearlyPrice.html(moneyFormat.to(719));
+		monthlyPrice.html(moneyFormat.to(899));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$2,000,000'){
+		billedYearly.html(moneyFormat.to(14388));
+		saveYearly.html(moneyFormat.to(3600));
+		yearlyPrice.html(moneyFormat.to(1199));
+		monthlyPrice.html(moneyFormat.to(1499));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$3,000,000'){
+		billedYearly.html(moneyFormat.to(19188));
+		saveYearly.html(moneyFormat.to(4800));
+		yearlyPrice.html(moneyFormat.to(1599));
+		monthlyPrice.html(moneyFormat.to(1999));
+		$('.noUi-tooltip').prepend('Up to ');
+	}
+	 if(values[0] =='$3,500,000'){
+		$('.noUi-tooltip').prepend('Above ');
+		$('.xt-show-above').show();
+		$('.xt-hide-above').hide();
+		
+	}else{
+		$('.xt-show-above').hide();
+		$('.xt-hide-above').show();
+
+	}
+
+	 
+});
+
 })( jQuery );

@@ -121,6 +121,10 @@ add_action( 'widgets_init', 'xt_sidebars' );
  */
 function xt_scripts() {
 
+	if(is_page(15)){
+	wp_enqueue_script( 'nouislider', get_template_directory_uri() . '/js/min/nouislider.js', array( 'jquery' ), XT_VERSION, true );
+	wp_enqueue_style( 'nouislider-style', get_template_directory_uri() . '/css/nouislider.css', '', XT_VERSION );
+	}
 	// site.js
 	wp_enqueue_script( 'xt-slick', get_template_directory_uri() . '/js/min/slick-min.js', array( 'jquery' ), XT_VERSION, true );
 	wp_enqueue_script( 'xt-site', get_template_directory_uri() . '/js/min/site-min.js', array( 'jquery' ), XT_VERSION, true );
