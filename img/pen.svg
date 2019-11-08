@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Contact_us" transform="translate(-188.000000, -422.000000)" fill="#9CA8B7" fill-rule="nonzero">
+            <g id="Contact_Us" transform="translate(164.000000, 141.000000)">
+                <g id="Input" transform="translate(0.000000, 255.000000)">
+                    <g id="noun_write_1491477" transform="translate(24.000000, 26.000000)">
+                        <g id="Group">
+                            <path d="M14.12,4.84 C15.22,3.74 15.22,1.98 14.12,0.880000001 C13.02,-0.219999999 11.26,-0.219999999 10.16,0.880000001 L9.64,1.4 L13.6,5.36 L14.12,4.84 Z" id="Path"></path>
+                            <polygon id="Rectangle" transform="translate(6.792809, 8.207031) rotate(-45.000000) translate(-6.792809, -8.207031) " points="0.762866944 5.40705782 12.8227513 5.40705782 12.8227513 11.0070041 0.762866944 11.0070041"></polygon>
+                            <path d="M0.14,11.28 L0.08,13.78 C0.08,14.04 0.18,14.3 0.36,14.48 C0.54,14.66 0.78,14.78 1.04,14.78 L3.68,14.84 L3.68,14.84 C3.68,14.84 3.7,14.84 3.7,14.84 C3.72,14.84 3.74,14.84 3.76,14.84 L0.16,11.22 C0.16,11.24 0.14,11.26 0.14,11.28 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
