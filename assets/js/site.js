@@ -495,7 +495,7 @@ var moneyFormat = wNumb({
 	prefix: '$',
 });
 	
-		 console.log(values[0]);
+		 //console.log(values[0]);
 	if(values[0] =='$5,000'){
 		billedYearly.html(moneyFormat.to(468));
 		saveYearly.html(moneyFormat.to(120));
@@ -518,10 +518,10 @@ var moneyFormat = wNumb({
 		$('.noUi-tooltip').prepend('Up to ');
 	}
 	 if(values[0] =='$50,000'){
-		billedYearly.html(moneyFormat.to(948));
-		saveYearly.html(moneyFormat.to(1428));
-		yearlyPrice.html(moneyFormat.to(360));
-		monthlyPrice.html(moneyFormat.to(148));
+		 billedYearly.html(moneyFormat.to(1428));
+		saveYearly.html(moneyFormat.to(360));
+		yearlyPrice.html(moneyFormat.to(119));
+		monthlyPrice.html(moneyFormat.to(149));
 		$('.noUi-tooltip').prepend('Up to ');
 	}
 	 if(values[0] =='$100,000'){
@@ -548,7 +548,7 @@ var moneyFormat = wNumb({
 	 if(values[0] =='$750,000'){
 		billedYearly.html(moneyFormat.to(6708));
 		saveYearly.html(moneyFormat.to(1680));
-		yearlyPrice.html(moneyFormat.to(599));
+		yearlyPrice.html(moneyFormat.to(559));
 		monthlyPrice.html(moneyFormat.to(699));
 		$('.noUi-tooltip').prepend('Up to ');
 	}
@@ -574,7 +574,7 @@ var moneyFormat = wNumb({
 		$('.noUi-tooltip').prepend('Up to ');
 	}
 	 if(values[0] =='$3,500,000'){
-		$('.noUi-tooltip').prepend('Above ');
+		$('.noUi-tooltip').html('Above 3,000,000');
 		$('.xt-show-above').show();
 		$('.xt-hide-above').hide();
 		

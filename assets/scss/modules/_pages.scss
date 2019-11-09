@@ -1031,8 +1031,8 @@
 .xt-monthly .xt-price .large {
   color: #3a00ff;
 }
-.xt-yearly .xt-show-above h2 {
-  color: #ff76df;
+.xt-yearly .xt-show-above h2 a {
+  color: #ff76df!important;
 }
 .xt-monthly .xt-show-above h2 {
   color: #3a00ff;
@@ -1232,26 +1232,17 @@ position: relative;
 }
 .xt-contact-details-row .xt-directions{
   font-size: 16px;
-  color: #0E1B22;
   letter-spacing: 0;
   font-weight: 500;
   margin: 10px 0 13px!important;
   display: inline-block;
   padding-bottom: 2px;
   border-bottom: 1px solid #0E1B22;
-  &:hover{
-    border-bottom: 1px solid $accent-color;
-  }
 }
 .xt-contact-details-row .contact-info{
   font-weight: 500;
 }
-.xt-contact-details-row .contact-info a{
-  color: #555E64;
-  &:hover{
-    color: $accent-color!important;
-  }
-}
+
 .xt-contact-details-row .contact-info, 
 .xt-contact-details-row .contact-title{
   margin-left: 40px;

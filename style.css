@@ -4343,8 +4343,8 @@ li.tab-current:first-child:before {
   color: #3a00ff;
 }
 
-.xt-yearly .xt-show-above h2 {
-  color: #ff76df;
+.xt-yearly .xt-show-above h2 a {
+  color: #ff76df !important;
 }
 
 .xt-monthly .xt-show-above h2 {
@@ -4571,7 +4571,6 @@ li.tab-current:first-child:before {
 
 .xt-contact-details-row .xt-directions {
   font-size: 16px;
-  color: #0E1B22;
   letter-spacing: 0;
   font-weight: 500;
   margin: 10px 0 13px !important;
@@ -4580,20 +4579,8 @@ li.tab-current:first-child:before {
   border-bottom: 1px solid #0E1B22;
 }
 
-.xt-contact-details-row .xt-directions:hover {
-  border-bottom: 1px solid #3a00ff;
-}
-
 .xt-contact-details-row .contact-info {
   font-weight: 500;
-}
-
-.xt-contact-details-row .contact-info a {
-  color: #555E64;
-}
-
-.xt-contact-details-row .contact-info a:hover {
-  color: #3a00ff !important;
 }
 
 .xt-contact-details-row .contact-info,
