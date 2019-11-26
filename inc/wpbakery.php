@@ -286,19 +286,20 @@ function create_bloggrid_shortcode($atts)
             $title = get_the_title();
             $permalink = get_the_permalink();
             $featured = get_post_thumbnail_id($id, 'large');
-            $featured_src = wp_get_attachment_image_src($featured, 'large')[0];
+            $featured_src = wp_get_attachment_image_src($featured, 'blog-thumb')[0];
             $alt_text = get_post_meta($featured, '_wp_attachment_image_alt', true);
             $date = get_the_date('M j Y');
-            echo '<div class="xt-blog-grid-item animated standby fadeIn ' . $blog_grid_item_class . ' ' . $post_row . '' . ' ' . $shadow . '">';
+            echo '<div class="xt-blog-grid-item' . $blog_grid_item_class . ' ' . $post_row . '' . ' ' . $shadow . '">';
             if ($featured) {
                 echo '<div class="xt-blog-grid-item-image"><a href="' . $permalink . '"><img src="' . $featured_src . '" alt="' . $alt_text . '"/></a></div>';
             }
+echo '<div class="xt-blog-grid-item-meta">' . $date . '</div>';
 
             echo '<div class="xt-blog-grid-item-title"><a href="' . $permalink . '">' . $title . '</a></div>';
             if ($post_excerpts === 'yes') {
                 echo '<div class="xt-blog-grid-item-content">' . get_excerpt(150) . '</div>';
             }
-            echo '<div class="xt-blog-grid-item-meta">' . $date . '</div>';
+           
             echo '</div>';
         endwhile;
         $total_pages = $data->max_num_pages;
@@ -569,8 +570,8 @@ function iconlistitem_integrateWithVC()
                 'class' => '',
                 'heading' => __('Content', 'xstream'),
                 'param_name' => 'content',
-				'value' => __('', 'xstream'),
-				'admin_label' => false,
+                'value' => __('', 'xstream'),
+                'admin_label' => false,
 
             ),
             array(
@@ -580,6 +581,433 @@ function iconlistitem_integrateWithVC()
                 'admin_label' => false,
                 'heading' => __('Custom Class', 'xstream'),
                 'param_name' => 'custom_class',
+            ),
+        ),
+    ));
+}
+
+// Create Shortcode team
+// Use the shortcode: [team image="" name="" position="" linkedin=""]
+function create_team_shortcode($atts , $content = null)
+{
+    // Attributes
+    $atts = shortcode_atts(
+        array(
+            'image' => '',
+            'name' => '',
+            'position' => '',
+            'linkedin' => '',
+        ),
+        $atts,
+        'team'
+    );
+    // Attributes in var
+    $image = wp_get_attachment_url($atts['image'], 'full');
+    $name = $atts['name'];
+    $position = $atts['position'];
+    $linkedin = $atts['linkedin'];
+    $content = wpb_js_remove_wpautop($content, true);
+
+    // Output Code
+    $output = '<div class="team-member">';
+        $output .= '<div class="team-img">';
+            $output .= '<img src="'.$image.'" alt="'.$name.'">';
+        $output .= '</div>';
+        $output .= '<div class="team-caption">';
+            $output .= '<h4 class="name">'.$name.'</h4>';
+            if($position){
+                $output .= '<p class="post-title">' . $position . '</p>';
+            }
+            if($linkedin){
+                $output .= '<a href="' . $linkedin . '">' . file_get_contents(get_template_directory_uri() . "/img/ln-icon.svg") . '</a>';
+            }
+        $output .= '</div>';
+        $output .= '<div class="team-content">'.$content.'</div>';
+    $output .= '</div>';
+
+    return $output;
+}
+add_shortcode('team', 'create_team_shortcode');
+
+// Create team element for Visual Composer
+add_action('vc_before_init', 'team_integrateWithVC');
+function team_integrateWithVC()
+{
+    vc_map(array(
+        'name' => __('team', 'xstream'),
+        'base' => 'team',
+        'class' => 'team',
+        'icon' => get_template_directory_uri() . '/img/icon.png',
+        'show_settings_on_create' => true,
+        'category' => __('XT', 'xstream'),
+        'params' => array(
+            array(
+                'type' => 'attach_image',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => false,
+                'heading' => __('Image', 'xstream'),
+                'param_name' => 'image',
+            ),
+            array(
+                'type' => 'textfield',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => false,
+                'heading' => __('Name', 'xstream'),
+                'param_name' => 'name',
+            ),
+            array(
+                'type' => 'textfield',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => false,
+                'heading' => __('Position', 'xstream'),
+                'param_name' => 'position',
+            ),
+            array(
+                'type' => 'textfield',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => true,
+                'heading' => __('LinkedIn', 'xstream'),
+                'param_name' => 'linkedin',
+            ),
+            array(
+                'type' => 'textarea_html',
+                'holder' => 'div',
+                'class' => '',
+                'heading' => __('Content', 'xstream'),
+                'param_name' => 'content',
+                'value' => __('', 'xstream'),
+                'admin_label' => false,
+
+            ),
+        ),
+    ));
+}
+
+
+// Shortcode
+// source : https://wpbakery.atlassian.net/wiki/pages/viewpage.action?pageId=524362
+
+if (!function_exists('accordion_content')) {
+    function accordion_content($atts, $content = null)
+    {
+        return '<div class="xt-accordion">' . do_shortcode($content) . '</div>';
+    }
+    add_shortcode('accordion_content', 'accordion_content');
+}
+
+if (!function_exists('single_accordion_content')) {
+    function single_accordion_content($atts, $content = null)
+    {
+        extract(shortcode_atts(array(
+            'title' => '',
+            'type' => '',
+            'location' => '',
+            'butto' => '',
+        ), $atts));
+
+    
+
+        $output .= '<div class="accordion-item">
+                    <div class="container">
+                       <div class="top">';  
+                          $output .= '<div class="left">
+                                        <h4>'.$atts['title'].'</h4>
+                                        <p>'.$atts['type'].'</p>
+                                    </div>';
+                           $output .= '<div class="right">
+                                        <p>'.$atts['location'].'<i class="xtf xtf-arrow-down"></i></p>
+                                    </div>'; 
+        $output .=  '</div>';
+                $output .= '<div class="bottom">'.$content.'
+                <a class="btn btn-blue" href="'.$atts['button'].'">Apply Now</a></div>
+                    </div>
+                </div>';
+
+        return $output;
+    }
+    add_shortcode('single_accordion_content', 'single_accordion_content');
+}
+
+// Mapping
+vc_map(array(
+    "name" => __("Accordion Content", "xt"),
+    "base" => "accordion_content",
+    "as_parent" => array('only' => 'single_accordion_content'),
+    'icon' => get_template_directory_uri() . '/img/icon.png',
+    "content_element" => true,
+    "show_settings_on_create" => false,
+    "is_container" => true,
+    "js_view" => 'VcColumnView',
+    "category" => array('XT'),
+));
+
+vc_map(array(
+    "name" => __("Single Accordion Item", "xt"),
+    "base" => "single_accordion_content",
+    "content_element" => true,
+     'icon' => get_template_directory_uri() . '/img/icon.png',
+    "as_child" => array('only' => 'accordion_content'),
+    "show_settings_on_create" => true,
+    "params" => array(
+        array(
+            "type" => "textfield",
+            "heading" => __("Title", "xt"),
+            "param_name" => "title",
+        ),
+        array(
+            "type" => "textarea",
+            "heading" => __("Position Type", "xt"),
+            "param_name" => "type",
+        ),
+         array(
+            "type" => "textarea",
+            "heading" => __("Location", "xt"),
+            "param_name" => "location",
+        ),
+        array(
+            "type" => "textfield",
+            "heading" => __("Button Link", "xt"),
+            "param_name" => "button",
+        ),
+         array(
+                'type' => 'textarea_html',
+                'holder' => 'div',
+                'class' => '',
+                'heading' => __('Content', 'xstream'),
+                'param_name' => 'content',
+                'value' => __('', 'xstream'),
+                'admin_label' => false,
+
+            ),
+       
+    ),
+));
+
+if (class_exists('WPBakeryShortCodesContainer')) {
+    class WPBakeryShortCode_Accordion_Content extends WPBakeryShortCodesContainer
+    {
+    }
+}
+if (class_exists('WPBakeryShortCode')) {
+    class WPBakeryShortCode_Single_Accordion_Content extends WPBakeryShortCode
+    {
+    }
+}
+
+
+// Create Shortcode testimonials
+// Use the shortcode: [testimonials carousel_type="" category="" items_number=""]
+function create_testimonials_shortcode($atts)
+{
+    // Attributes
+    $atts = shortcode_atts(
+        array(
+            'carousel_type' => '',
+            'category' => '',
+            'items_number' => '3',
+        ),
+        $atts,
+        'testimonials'
+    );
+    // Attributes in var
+    $carousel_type = $atts['carousel_type'];
+    $category = $atts['category'];
+    $items_number = $atts['items_number'];
+
+    if(!$category){
+        $args = array(
+            'post_type' => 'testimonials',
+            'posts_per_page' => $items_number,
+        );
+    }else{
+        $args = array(
+        'post_type' => 'testimonials',
+        'posts_per_page' => $items_number,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'testimonial_category',
+                'field' => 'slug',
+                'terms' => $category,
+            ),
+        ),
+        );
+    }
+    $posts = get_posts($args);
+    ob_start();
+
+    if( $carousel_type =='With Logos'){
+        ?>  
+        <script>
+        jQuery(document).ready(function($) {
+            $('.main-slider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: false,
+                asNavFor: '.logo-thumbs',
+                 responsive: [
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                                dots:true
+                                
+                            }
+                        }
+                    ]
+
+                });
+            $('.logo-thumbs').slick({
+                slidesToShow: <?php echo $items_number;?>,
+                slidesToScroll: 1,
+                asNavFor: '.main-slider',
+                focusOnSelect: true,
+                dots: false,
+                centerMode: false,
+                arrows: false,
+                responsive: [
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2,
+                                
+                            }
+                        }
+                    ]
+                });
+        
+                $('.logo-thumbs .slick-slide').removeClass('slick-active');
+                // Set active class to first thumbnail slides
+                $('.logo-thumbs .slick-slide').eq(0).addClass('slick-active');
+                $('.main-slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                    var mySlideNumber = nextSlide;
+                    $('.logo-thumbs .slick-slide').removeClass('slick-active');
+                    $('.logo-thumbs .slick-slide').eq(mySlideNumber).addClass('slick-active');
+                });
+            });
+        </script>
+       
+    <div class="logo-thumbs">
+        <?php 
+       foreach ($posts as $post) {
+        $thum_id = $post->ID;
+        $logo = get_post_meta($thum_id, 'logo', true);
+        $logo_src = wp_get_attachment_image_src($logo, 'full')[0];
+        $alt =  get_post_meta($logo, '_wp_attachment_image_alt', true);
+
+          echo '<img src="'.$logo_src.'" alt="'.$alt.'" />';
+       }
+        ?>
+    </div>
+
+    <?php
+    }else{
+        ?>
+         <script>
+        jQuery(document).ready(function($) {
+            $('.main-slider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: false,
+                dots:true,
+                });
+            });
+        </script>
+        <?php
+    }
+    ?>
+    
+    <div class="main-slider">
+  <?php
+    foreach ($posts as $post) {
+        $post_id = $post->ID;
+        $featured_img_url = get_the_post_thumbnail_url($post_id , 'full');
+        ?>
+        <div class="testimonial-item">
+            <?php  if( $carousel_type =='Without Logos'){?>
+                <div class="xt-testimonial-author">
+                <img src="<?php echo $featured_img_url;?>" alt="<?php echo $post->post_title;?>"/>
+                    <div class="details">
+                    <h4><?php echo $post->post_title;?></h4>
+                    <h5><?php echo get_post_meta($post_id, 'position',true);?></h5>
+                    </div>
+                    
+                </div>
+            <?php } ?>
+
+            <div class="xt-testimonials-content">
+            <?php echo $post->post_content;?>
+            </div>
+             <?php  if( $carousel_type =='With Logos'){?>
+            <div class="xt-testimonial-author">
+                <div class="details">
+                 <h4><?php echo $post->post_title;?></h4>
+                 <h5><?php echo get_post_meta($post_id, 'position',true);?></h5>
+                </div>
+                <img src="<?php echo $featured_img_url;?>" alt="<?php echo $post->post_title;?>"/>
+            </div>
+           <?php } ?> 
+        </div>
+        <?php
+    }
+?>
+    </div>
+
+
+    <?php
+    $output_string = ob_get_contents();
+    ob_end_clean();
+    return $output_string;  
+}
+add_shortcode('testimonials', 'create_testimonials_shortcode');
+
+// Create Testimonials element for Visual Composer
+add_action('vc_before_init', 'testimonials_integrateWithVC');
+function testimonials_integrateWithVC()
+{
+    vc_map(array(
+        'name' => __('Testimonials', 'xstream'),
+        'base' => 'testimonials',
+        'class' => 'testimonials_carousel',
+        'icon' => get_template_directory_uri() . '/img/icon.png',
+        'show_settings_on_create' => true,
+        'category' => __('XT', 'xstream'),
+        'params' => array(
+            array(
+                'type' => 'dropdown',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => true,
+                'heading' => __('Display Logos', 'xstream'),
+                'param_name' => 'carousel_type',
+                'value' => array(
+                    'with-logos' => 'With Logos',
+                    'without-logos' => 'Without Logos',
+                ),
+                'std' => 'without-logos',
+            ),
+            array(
+                'type' => 'textfield',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => true,
+                'heading' => __('Category', 'xstream'),
+                'param_name' => 'category',
+            ),
+            array(
+                'type' => 'textfield',
+                'holder' => 'div',
+                'class' => '',
+                'admin_label' => true,
+                'heading' => __('Number of items', 'xstream'),
+                'param_name' => 'items_number',
             ),
         ),
     ));

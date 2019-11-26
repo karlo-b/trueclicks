@@ -157,33 +157,56 @@ function xt_inner_content_close() {
 /**
  * Title
  */
-function xt_title() {
+function xt_title()
+{
 
-	$options = get_post_meta( get_the_ID(), 'xt_options', true );
+    $options = get_post_meta(get_the_ID(), 'xt_options', true);
 
-	$removetitle = $options ? in_array( 'remove-title', $options ) : false;
+    $removetitle = $options ? in_array('remove-title', $options) : false;
 
-	$title = $removetitle ? false : '<h1 class="entry-title" itemprop="headline">'. get_the_title() .'</h1>';
+    $title = $removetitle ? false : '<h1 class="entry-title post-header__title" itemprop="headline">' . get_the_title() . '</h1>';
 
-	if ( xt_is_premium() ) {
+    if ($title) {
 
-		$xt_settings = get_option( 'xt_settings' );
+        do_action('xt_before_page_title');
 
-		$removetitle_global = isset( $xt_settings['xt_removetitle_global'] ) ? $xt_settings['xt_removetitle_global'] : array();
+        if (is_single()):
+        ?>
 
-		$removetitle_global && in_array( get_post_type(), $removetitle_global ) ? $title = false : '';
+	<section class="post-header">
+<?php if (!has_post_thumbnail()) {$class = "no-thumb";}?>
+                <div class="post-header__text <?php echo $class; ?>">
+                    <div class="post-header__meta">
+                    	    <div class="blog-post__meta">
+                    	       <?php the_category(' ');?> </a>
+                    	    </div>
+                    </div>
+                    <?php echo $title; ?>
+                    <div class="post-author-tag">
+                        <div class="post-author-tag__image-container">
+                            <div class="post-author-tag__image">
+                                <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>" target="_blank">
+                                    <?php echo do_shortcode('[avatar]'); ?>
+	                            </a>
+                            </div>
+                        </div>
+                        <div class="post-author-tag__text">
+							<p>Written by <?php echo get_the_author_link(); ?> / <?php echo '<span class="posted-on">' . __('Posted on', 'xt-framework') . '</span> <time class="article-time published" datetime="' . get_the_date('c') . '" itemprop="datePublished">' . get_the_date() . '</time>';?></p>
+							<p class="read"><?php echo reading_time();?></p>
+						</div>
+                    </div>
+				</div>
 
-	}
+    </section>
 
-	if( $title ) {
+	<?php
 
-		do_action( 'xt_before_page_title' );
+        else:
+            echo $title; // WPCS: XSS ok.
+        endif;
+        do_action('xt_after_page_title');
 
-		echo $title; // WPCS: XSS ok.
-
-		do_action( 'xt_after_page_title' );
-
-	}
+    }
 
 }
 
@@ -1032,6 +1055,7 @@ function xt_social() {
 
 	if ( ! empty( $active_networks ) && is_array( $active_networks ) ) : ?>
 	<div class="xt-social-icons<?php echo esc_attr( $social_shape . $social_style . $social_size ); ?>">
+	
 		<?php foreach ( $active_networks as $social_network_label ) : ?>
 			<a class="xt-social-icon xt-social-<?php echo esc_attr( $social_network_label ); ?>" target="_blank" href="<?php echo esc_url( get_theme_mod( $social_network_label . '_link', '' ) ); ?>">
 				<i class="xtf xtf-<?php echo esc_attr( $social_network_label ); ?>" aria-hidden="true"></i>
@@ -1075,7 +1099,7 @@ function change_contact_info($contactmethods) {
 
 add_filter('user_contactmethods','change_contact_info',10,1);
 
-add_action( 'xt_article_close', 'single_suthor_box');
+//add_action( 'author_box', 'single_suthor_box');
 function single_suthor_box(){
 
 $author             = get_the_author();
@@ -1102,17 +1126,16 @@ if($linkedin){
         <div class="author-info-inner clr">
             <?php if ( $author_avatar ) { ?>
                 <div class="author-avatar clr">
-                    <a href="<?php echo esc_url( $author_url ); ?>" rel="author">
+                    
                         <?php echo $author_avatar; ?>
-                    </a>
+                    
                 </div><!-- .author-avatar -->
             <?php } ?>
             <div class="author-description">
-			<h4 class="heading"><span><?php printf( esc_html__( 'Written by %s', 'text_domain' ), esc_html( $author ) ); ?></span></h4>
+			<h4 class="heading"><span><?php echo  $author; ?></span></h4>
                 <p><?php echo wp_kses_post( $author_description ); ?></p>
                 <div class="author-links">
 				<?php echo $authsocial; ?>
-				<a href="<?php echo esc_url( $author_url ); ?>" title="<?php esc_html_e( 'View all author posts', 'text_domain' ); ?>"><?php esc_html_e( 'View all author posts', 'text_domain' ); ?> →</a></div>
             </div><!-- .author-description -->
         </div><!-- .author-info-inner -->
     </div><!-- .author-info -->
@@ -1173,3 +1196,396 @@ function wpb_remove_version() {
 	add_filter('the_generator', 'wpb_remove_version');
 
 	
+function xt_sharing_buttons()
+{
+    global $post;
+
+    // Get current page URL
+    $xtURL = urlencode(get_permalink());
+
+    // Get current page title
+    $xtTitle = htmlspecialchars(urlencode(html_entity_decode(get_the_title(), ENT_COMPAT, 'UTF-8')), ENT_COMPAT, 'UTF-8');
+    // $xtTitle = str_replace( ' ', '%20', get_the_title());
+
+    // Get Post Thumbnail for pinterest
+    $xtThumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+
+    // Construct sharing URL without using any script
+    $twitterURL = 'https://twitter.com/intent/tweet?text=' . $xtTitle . '&amp;url=' . $xtURL . '&ampvia=' . get_bloginfo("name");
+    $facebookURL = 'https://www.facebook.com/sharer/sharer.php?u=' . $xtURL;
+    $linkedInURL = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $xtURL . '&amp;title=' . $xtTitle;
+
+    // Add sharing button at the end of page/page content
+	$content .='<h6>Share this</h6>';
+    $content .= '<div class="xt-social">';
+    $content .= '<a class="xt-link xt-twitter" href="' . $twitterURL . '" target="_blank"><i class="xtf xtf-twitter"></i></a>';
+    $content .= '<a class="xt-link xt-facebook" href="' . $facebookURL . '" target="_blank"><i class="xtf xtf-facebook"></i></a>';
+    $content .= '<a class="xt-link xt-linkedin" href="' . $linkedInURL . '" target="_blank"><i class="xtf xtf-linkedin"></i></a>';
+    $content .= '<a href="mailto:type email address here?subject=I wanted to share this post with you from' . get_bloginfo("name") . '&body=' . get_the_title() . '&#32;&#32;' . get_the_permalink() . '"><i class="xtf xtf-envelope"></i></a>';
+    $content .= '</div>';
+
+    return $content;
+}
+
+// Reading time
+function reading_time()
+{
+    $content = get_post_field('post_content', $post->ID);
+    $word_count = str_word_count(strip_tags($content));
+    $readingtime = ceil($word_count / 200);
+    //$manual_reading = get_post_meta(get_the_ID(), 'reading_time_value', true);
+
+    if ($readingtime == 1) {
+        $timer = " min read";
+    } else {
+        $timer = " min read";
+    }
+    if ($manual_reading) {
+        $totalreadingtime = $manual_reading . ' MIN READ';
+    } else {
+        $totalreadingtime = $readingtime . $timer;
+    }
+    return $totalreadingtime;
+}
+add_action('xt_after_main_navigation', 'blog_progess');
+function blog_progess(){
+	if (is_single()) {
+    ?>
+		<progress class="xt-progress" value="0">
+		  <div class="progress-container">
+			<span class="progress-bar"></span>
+		  </div>
+	  </progress>
+		<?php
+}
+}
+
+// Register Custom Post Type Testimonial
+function create_testimonial_cpt()
+{
+
+    $labels = array(
+        'name' => _x('Testimonials', 'Post Type General Name', 'xstream'),
+        'singular_name' => _x('Testimonial', 'Post Type Singular Name', 'xstream'),
+        'menu_name' => _x('Testimonials', 'Admin Menu text', 'xstream'),
+        'name_admin_bar' => _x('Testimonial', 'Add New on Toolbar', 'xstream'),
+        'archives' => __('Testimonial Archives', 'xstream'),
+        'attributes' => __('Testimonial Attributes', 'xstream'),
+        'parent_item_colon' => __('Parent Testimonial:', 'xstream'),
+        'all_items' => __('All Testimonials', 'xstream'),
+        'add_new_item' => __('Add New Testimonial', 'xstream'),
+        'add_new' => __('Add New', 'xstream'),
+        'new_item' => __('New Testimonial', 'xstream'),
+        'edit_item' => __('Edit Testimonial', 'xstream'),
+        'update_item' => __('Update Testimonial', 'xstream'),
+        'view_item' => __('View Testimonial', 'xstream'),
+        'view_items' => __('View Testimonials', 'xstream'),
+        'search_items' => __('Search Testimonial', 'xstream'),
+        'not_found' => __('Not found', 'xstream'),
+        'not_found_in_trash' => __('Not found in Trash', 'xstream'),
+        'featured_image' => __('Featured Image', 'xstream'),
+        'set_featured_image' => __('Set featured image', 'xstream'),
+        'remove_featured_image' => __('Remove featured image', 'xstream'),
+        'use_featured_image' => __('Use as featured image', 'xstream'),
+        'insert_into_item' => __('Insert into Testimonial', 'xstream'),
+        'uploaded_to_this_item' => __('Uploaded to this Testimonial', 'xstream'),
+        'items_list' => __('Testimonials list', 'xstream'),
+        'items_list_navigation' => __('Testimonials list navigation', 'xstream'),
+        'filter_items_list' => __('Filter Testimonials list', 'xstream'),
+    );
+    $args = array(
+        'label' => __('Testimonial', 'xstream'),
+        'description' => __('', 'xstream'),
+        'labels' => $labels,
+        'menu_icon' => 'dashicons-thumbs-up',
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'taxonomies' => array('testimonial_category'),
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_position' => 5,
+        'show_in_admin_bar' => true,
+        'show_in_nav_menus' => true,
+        'can_export' => true,
+        'has_archive' => true,
+        'hierarchical' => true,
+        'exclude_from_search' => false,
+        'show_in_rest' => true,
+        'publicly_queryable' => true,
+        'capability_type' => 'post',
+    );
+    register_post_type('testimonials', $args);
+
+}
+add_action('init', 'create_testimonial_cpt', 0);
+
+// Register Taxonomy Testimonial Category
+function create_testimonialcategory_tax()
+{
+
+    $labels = array(
+        'name' => _x('Testimonial Categories', 'taxonomy general name', 'xstream'),
+        'singular_name' => _x('Testimonial Category', 'taxonomy singular name', 'xstream'),
+        'search_items' => __('Search Testimonial Categories', 'xstream'),
+        'all_items' => __('All Testimonial Categories', 'xstream'),
+        'parent_item' => __('Parent Testimonial Category', 'xstream'),
+        'parent_item_colon' => __('Parent Testimonial Category:', 'xstream'),
+        'edit_item' => __('Edit Testimonial Category', 'xstream'),
+        'update_item' => __('Update Testimonial Category', 'xstream'),
+        'add_new_item' => __('Add New Testimonial Category', 'xstream'),
+        'new_item_name' => __('New Testimonial Category Name', 'xstream'),
+        'menu_name' => __('Testimonial Category', 'xstream'),
+    );
+    $args = array(
+        'labels' => $labels,
+        'description' => __('', 'xstream'),
+        'hierarchical' => true,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
+        'show_tagcloud' => true,
+        'show_in_quick_edit' => true,
+        'show_admin_column' => false,
+        'show_in_rest' => true,
+    );
+    register_taxonomy('testimonial_category', array('testimonials'), $args);
+
+}
+add_action('init', 'create_testimonialcategory_tax');
+
+class GFLimitCheckboxes
+{
+
+    private $form_id;
+    private $field_limits;
+    private $output_script;
+
+    public function __construct($form_id, $field_limits)
+    {
+
+        $this->form_id = $form_id;
+        $this->field_limits = $this->set_field_limits($field_limits);
+
+        add_filter("gform_pre_render_$form_id", array(&$this, 'pre_render'));
+        add_filter("gform_validation_$form_id", array(&$this, 'validate'));
+
+    }
+
+    public function pre_render($form)
+    {
+
+        $script = '';
+        $output_script = false;
+
+        foreach ($form['fields'] as $field) {
+
+            $field_id = $field['id'];
+            $field_limits = $this->get_field_limits($field['id']);
+
+            if (!$field_limits // if field limits not provided for this field
+                 || RGFormsModel::get_input_type($field) != 'checkbox' // or if this field is not a checkbox
+                 || !isset($field_limits['max']) // or if 'max' is not set for this field
+            ) {
+                continue;
+            }
+
+            $output_script = true;
+            $max = $field_limits['max'];
+            $selectors = array();
+
+            foreach ($field_limits['field'] as $checkbox_field) {
+                $selectors[] = "#field_{$form['id']}_{$checkbox_field} .gfield_checkbox input:checkbox";
+            }
+
+            $script .= "jQuery(\"" . implode(', ', $selectors) . "\").checkboxLimit({$max});";
+
+        }
+
+        GFFormDisplay::add_init_script($form['id'], 'limit_checkboxes', GFFormDisplay::ON_PAGE_RENDER, $script);
+
+        if ($output_script):
+        ?>
+
+            <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $.fn.checkboxLimit = function(n) {
+
+                    var checkboxes = this;
+
+                    this.toggleDisable = function() {
+
+                        // if we have reached or exceeded the limit, disable all other checkboxes
+                        if(this.filter(':checked').length >= n) {
+                            var unchecked = this.not(':checked');
+                            unchecked.prop('disabled', true);
+                        }
+                        // if we are below the limit, make sure all checkboxes are available
+                        else {
+                            this.prop('disabled', false);
+                        }
+
+                    }
+
+                    // when form is rendered, toggle disable
+                    checkboxes.bind('gform_post_render', checkboxes.toggleDisable());
+
+                    // when checkbox is clicked, toggle disable
+                    checkboxes.click(function(event) {
+
+                        checkboxes.toggleDisable();
+
+                        // if we are equal to or below the limit, the field should be checked
+                        return checkboxes.filter(':checked').length <= n;
+                    });
+
+                }
+            });
+            </script>
+
+            <?php
+endif;
+
+        return $form;
+    }
+
+    public function validate($validation_result)
+    {
+
+        $form = $validation_result['form'];
+        $checkbox_counts = array();
+
+        // loop through and get counts on all checkbox fields (just to keep things simple)
+        foreach ($form['fields'] as $field) {
+
+            if (RGFormsModel::get_input_type($field) != 'checkbox') {
+                continue;
+            }
+
+            $field_id = $field['id'];
+            $count = 0;
+
+            foreach ($_POST as $key => $value) {
+                if (strpos($key, "input_{$field['id']}_") !== false) {
+                    $count++;
+                }
+
+            }
+
+            $checkbox_counts[$field_id] = $count;
+
+        }
+
+        // loop through again and actually validate
+        foreach ($form['fields'] as &$field) {
+
+            if (!$this->should_field_be_validated($form, $field)) {
+                continue;
+            }
+
+            $field_id = $field['id'];
+            $field_limits = $this->get_field_limits($field_id);
+
+            $min = isset($field_limits['min']) ? $field_limits['min'] : false;
+            $max = isset($field_limits['max']) ? $field_limits['max'] : false;
+
+            $count = 0;
+            foreach ($field_limits['field'] as $checkbox_field) {
+                $count += rgar($checkbox_counts, $checkbox_field);
+            }
+
+            if ($count < $min) {
+                $field['failed_validation'] = true;
+                $field['validation_message'] = sprintf(_n('You must select at least %s item.', 'You must select at least %s items.', $min), $min);
+                $validation_result['is_valid'] = false;
+            } else if ($count > $max) {
+                $field['failed_validation'] = true;
+                $field['validation_message'] = sprintf(_n('You may only select %s item.', 'You may only select %s items.', $max), $max);
+                $validation_result['is_valid'] = false;
+            }
+
+        }
+
+        $validation_result['form'] = $form;
+
+        return $validation_result;
+    }
+
+    public function should_field_be_validated($form, $field)
+    {
+
+        if ($field['pageNumber'] != GFFormDisplay::get_source_page($form['id'])) {
+            return false;
+        }
+
+        // if no limits provided for this field
+        if (!$this->get_field_limits($field['id'])) {
+            return false;
+        }
+
+        // or if this field is not a checkbox
+        if (RGFormsModel::get_input_type($field) != 'checkbox') {
+            return false;
+        }
+
+        // or if this field is hidden
+        if (RGFormsModel::is_field_hidden($form, $field, array())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function get_field_limits($field_id)
+    {
+
+        foreach ($this->field_limits as $key => $options) {
+            if (in_array($field_id, $options['field'])) {
+                return $options;
+            }
+
+        }
+
+        return false;
+    }
+
+    public function set_field_limits($field_limits)
+    {
+
+        foreach ($field_limits as $key => &$options) {
+
+            if (isset($options['field'])) {
+                $ids = is_array($options['field']) ? $options['field'] : array($options['field']);
+            } else {
+                $ids = array($key);
+            }
+
+            $options['field'] = $ids;
+
+        }
+
+        return $field_limits;
+    }
+
+}
+
+new GFLimitCheckboxes(3, array(
+    10 => array(
+        'min' => 1,
+        'max' => 1,
+    )
+));
+
+add_filter('body_class', 'my_body_classes');
+function my_body_classes($classes)
+{
+if(is_search() ){
+$classes[] = 'archive';
+
+}
+    
+
+    return $classes;
+
+}

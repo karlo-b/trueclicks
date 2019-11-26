@@ -385,206 +385,141 @@
 		
 		
 	});
-/*
-	$('a[href*="#"]')
-		// Remove links that don't actually link to anything
-		.not('[href="#"]')
-		.not('[href="#0"]')
-		.click(function (event) {
-			// On-page links
-			if (
-				location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') &&
-				location.hostname == this.hostname
-			) {
-				// Figure out element to scroll to
-				var target = $(this.hash);
-				target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-				// Does a scroll target exist?
-				if (target.length) {
-					// Only prevent default if animation is actually gonna happen
-					event.preventDefault();
-					$('html, body').animate({
-						scrollTop: target.offset().top
-					}, 1000, function () {
-						// Callback after animation
-						// Must change focus!
-						var $target = $(target);
-						$target.focus();
-						if ($target.is(":focus")) { // Checking if the target was focused
-							return false;
-						} else {
-							$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-							$target.focus(); // Set focus again
-						};
-					});
+
+
+	$('.accordion-item .top').click(function(){
+		$(this).next('.bottom').slideToggle();
+		$(this).parents('.accordion-item').toggleClass('active');
+	}
+	);
+
+	if ($(".post-content__sticky-social").length != 0) {
+		var $window = $(window),
+			$stickyEl = $('.post-content__sticky-social'),
+			elTop = $stickyEl.offset().top - 116;
+		$window.scroll(function () {
+			$stickyEl.toggleClass('fixed', $window.scrollTop() > elTop);
+		});
+	}
+	
+
+
+
+	var getMax = function () {
+		return $(document).height() - $(window).height();
+	}
+
+	var getValue = function () {
+		return $(window).scrollTop();
+	}
+
+	if ('max' in document.createElement('progress')) {
+		// Browser supports progress element
+		var progressBar = $('progress');
+
+		// Set the Max attr for the first time
+		progressBar.attr({ max: getMax() });
+
+		$(document).on('scroll', function () {
+			// On scroll only Value attr needs to be calculated
+			progressBar.attr({ value: getValue() });
+		});
+
+		$(window).resize(function () {
+			// On resize, both Max/Value attr needs to be calculated
+			progressBar.attr({ max: getMax(), value: getValue() });
+		});
+
+	} else {
+
+		var progressBar = $('.progress-bar'),
+			max = getMax(),
+			value, width;
+
+		var getWidth = function () {
+			// Calculate width in percentage
+			value = getValue();
+			width = (value / max) * 100;
+			width = width + '%';
+			return width;
+		}
+
+		var setWidth = function () {
+			progressBar.css({ width: getWidth() });
+		}
+
+		$(document).on('scroll', setWidth);
+		$(window).on('resize', function () {
+			// Need to reset the Max attr
+			max = getMax();
+			setWidth();
+		});
+	}
+
+	$slick_slider = $('.xt-logos-row');
+	settings_slider = {
+		dots: false,
+		arrows: false,
+		infinite: true,
+		slidesToShow: 2,
+		slidesToScroll: 2,
+		centerMode: true,
+		speed: 300,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		// more settings
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+					centerMode: true,
 				}
 			}
-		});
-*/
+		]
+	}
 
-		 $('.slider-for').slick({
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			arrows: false,
-			fade: true,
-			asNavFor: '.slider-nav'
-		});
-		$('.slider-nav').slick({
-			slidesToShow: 4,
-			slidesToScroll: 1,
-			asNavFor: '.slider-for',
-			dots: false,
-			arrows: true,
-			prevArrow: '<div class="slick-prev">&#10229;</div>',
-			nextArrow: '<div class="slick-next">&#10230;</div>',
-			focusOnSelect: true,
-			responsive: [
-				{
-					breakpoint: 767,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 1
-					}
+	$slick_slider2 = $('.xt-boxes');
+	settings_slider2 = {
+		dots: true,
+		arrows: false,
+		infinite: true,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		centerMode: true,
+		speed: 300,
+		//autoplay: true,
+		//autoplaySpeed: 3000,
+		// more settings
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+					centerMode: true,
 				}
+			}
+		]
+	}
 
-			]
-
+	slick_on_mobile($slick_slider, settings_slider);
+	slick_on_mobile($slick_slider2, settings_slider2);
+	// slick on mobile
+	function slick_on_mobile(slider, settings) {
+		$(window).on('load resize', function () {
+			if ($(window).width() > 767) {
+				if (slider.hasClass('slick-initialized')) {
+					slider.slick('unslick');
+				}
+				return
+			}
+			if (!slider.hasClass('slick-initialized')) {
+				return slider.slick(settings);
+			}
 		});
+	};
 
-	$('.xt-image-block p:empty').remove();
-
-	var rangeSlider = document.getElementById('range-slider');
-	noUiSlider.create(rangeSlider, {
-		start: 1000,
-		connect: 'lower',
-		direction: 'ltr',
-		step: 1000,
-		snap: true,
-		format: wNumb({
-			decimals: 0,
-			prefix: '$',
-			mark: '.',
-	        thousand: ',',
-		}),
-		range: {
-			'min': [5000],
-			'9%': [10000],
-			'18%': [25000],
-			'27%': [50000],
-			'36%': [100000],
-			'45%': [250000],
-			'55%': [500000],
-			'64%': [750000],
-			'73%': [1000000],
-			'82%': [2000000],
-			'91%': [3000000],
-			'max': [3500000],
-		},
-		tooltips: true,
-	});
-
-rangeSlider.noUiSlider.on('update', function( values, handle ){
-		 var billedYearly = $('.billed-yearly');
-		 var saveYearly = $('.save-yearly');
-		 var yearlyPrice = $('.yearly-price');
-		 var monthlyPrice = $('.monthly-price');
-
-var moneyFormat = wNumb({
-	mark: '.',
-	thousand: ',',
-	prefix: '$',
-});
-	
-		 //console.log(values[0]);
-	if(values[0] =='$5,000'){
-		billedYearly.html(moneyFormat.to(468));
-		saveYearly.html(moneyFormat.to(120));
-		yearlyPrice.html(moneyFormat.to(39));
-		monthlyPrice.html(moneyFormat.to(49));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$10,000'){
-		billedYearly.html(moneyFormat.to(756));
-		saveYearly.html(moneyFormat.to(192));
-		yearlyPrice.html(moneyFormat.to(63));
-		monthlyPrice.html(moneyFormat.to(79));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$25,000'){
-		billedYearly.html(moneyFormat.to(948));
-		saveYearly.html(moneyFormat.to(240));
-		yearlyPrice.html(moneyFormat.to(79));
-		monthlyPrice.html(moneyFormat.to(99));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$50,000'){
-		 billedYearly.html(moneyFormat.to(1428));
-		saveYearly.html(moneyFormat.to(360));
-		yearlyPrice.html(moneyFormat.to(119));
-		monthlyPrice.html(moneyFormat.to(149));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$100,000'){
-		billedYearly.html(moneyFormat.to(2388));
-		saveYearly.html(moneyFormat.to(600));
-		yearlyPrice.html(moneyFormat.to(199));
-		monthlyPrice.html(moneyFormat.to(249));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$250,000'){
-		billedYearly.html(moneyFormat.to(3348));
-		saveYearly.html(moneyFormat.to(840));
-		yearlyPrice.html(moneyFormat.to(279));
-		monthlyPrice.html(moneyFormat.to(349));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$500,000'){
-		billedYearly.html(moneyFormat.to(4788));
-		saveYearly.html(moneyFormat.to(1200));
-		yearlyPrice.html(moneyFormat.to(399));
-		monthlyPrice.html(moneyFormat.to(499));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$750,000'){
-		billedYearly.html(moneyFormat.to(6708));
-		saveYearly.html(moneyFormat.to(1680));
-		yearlyPrice.html(moneyFormat.to(559));
-		monthlyPrice.html(moneyFormat.to(699));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$1,000,000'){
-		billedYearly.html(moneyFormat.to(8628));
-		saveYearly.html(moneyFormat.to(2160));
-		yearlyPrice.html(moneyFormat.to(719));
-		monthlyPrice.html(moneyFormat.to(899));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$2,000,000'){
-		billedYearly.html(moneyFormat.to(14388));
-		saveYearly.html(moneyFormat.to(3600));
-		yearlyPrice.html(moneyFormat.to(1199));
-		monthlyPrice.html(moneyFormat.to(1499));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$3,000,000'){
-		billedYearly.html(moneyFormat.to(19188));
-		saveYearly.html(moneyFormat.to(4800));
-		yearlyPrice.html(moneyFormat.to(1599));
-		monthlyPrice.html(moneyFormat.to(1999));
-		$('.noUi-tooltip').prepend('Up to ');
-	}
-	 if(values[0] =='$3,500,000'){
-		$('.noUi-tooltip').html('Above 3,000,000');
-		$('.xt-show-above').show();
-		$('.xt-hide-above').hide();
-		
-	}else{
-		$('.xt-show-above').hide();
-		$('.xt-hide-above').show();
-
-	}
-
-	 
-});
 
 })( jQuery );

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="544px" height="530px" viewBox="0 0 544 530" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>Path Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0013FA" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#00C5FA" stop-opacity="0.264969406" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="TeamManagement__UI" transform="translate(-426.000000, -758.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+            <g id="AccountActivity" transform="translate(81.000000, 739.000000)">
+                <g id="Path-Copy">
+                    <path d="M725.8,111.166873 L645.382609,30.7002447 C629.772174,15.080252 604.227826,15.080252 588.617391,30.818578 L508.2,111.285207 L345,274.58513 C345.118261,296.713452 363.093913,314.581777 385.208696,314.581777 L515.532174,314.581777 L515.532174,508.766686 C515.532174,531.013342 533.507826,549 555.74087,549 L678.495652,549 C700.728696,549 718.704348,531.013342 718.704348,508.766686 L718.704348,314.463444 L848.791304,314.463444 C870.906087,314.463444 888.881739,296.595119 889,274.466796 L725.8,111.166873 Z" transform="translate(617.000000, 284.000000) scale(1, -1) translate(-617.000000, -284.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

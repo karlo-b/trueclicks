@@ -132,10 +132,6 @@ body {
 	}
 }
 
-.xt-post-style-plain:last-child {
-	padding-bottom: 0 !important;
-	border-bottom: none !important;
-}
 
 // Boxed Style
 .xt-post-style-boxed {
@@ -357,7 +353,6 @@ body {
 	.widget {
 		margin-bottom: $margin;
 		padding: $padding;
-		background: $base-color-alt;
 	}
 }
 
@@ -374,7 +369,7 @@ body {
 	right: 15px;
 	@include vertical-align($position: absolute);
 	color: $brand-color-alt;
-	font-family: "xstream" !important;
+	font-family: "xt-framework" !important;
 	speak: none;
 	font-style: normal;
 	font-weight: normal;

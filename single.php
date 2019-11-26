@@ -56,11 +56,14 @@ get_header(); ?>
 									?>
 
 								</header>
-
+							
 								<section class="entry-content article-content" itemprop="text">
-
-									<?php the_content(); ?>
-
+									<div class="post-content__sticky-social">
+										<?php echo xt_sharing_buttons(); ?>
+									</div>
+									<div class="content">
+										<?php the_content(); ?>
+									</div>
 									<?php
 									wp_link_pages( array(
 										'before' => '<div class="page-links">' . __( 'Pages:', 'xt-framework' ),
@@ -73,6 +76,7 @@ get_header(); ?>
 								<footer class="article-footer">
 
 									<?php
+										do_action('author_box'); 
 
 									if ( !empty( $template_parts_footer ) && is_array( $template_parts_footer ) ) {
 										foreach ( $template_parts_footer as $part ) {

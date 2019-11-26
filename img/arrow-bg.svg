@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="16 -9 544 530" style="enable-background:new 16 -9 544 530;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#Path_1_);}
+</style>
+<title>Path</title>
+<desc>Created with Sketch.</desc>
+<g id="Careers" transform="translate(-589.000000, -4044.000000)">
+	<g id="CTA" transform="translate(-279.000000, 4044.000000)">
+		<g id="bg">
+			
+				<linearGradient id="Path_1_" gradientUnits="userSpaceOnUse" x1="900.4706" y1="511.983" x2="900.4706" y2="510.983" gradientTransform="matrix(544 0 0 530 -488700 -270830)">
+				<stop  offset="0" style="stop-color:#00CDFA;stop-opacity:0"/>
+				<stop  offset="1" style="stop-color:#00CDFA;stop-opacity:0.265"/>
+			</linearGradient>
+			<path id="Path" class="st0" d="M1264.8,428.8l-80.4,80.5c-15.6,15.6-41.2,15.6-56.8-0.1l-80.4-80.5L884,265.4
+				c0.1-22.1,18.1-40,40.2-40h130.3V31.2c0-22.2,18-40.2,40.2-40.2h122.8c22.2,0,40.2,18,40.2,40.2v194.3h130.1
+				c22.1,0,40.1,17.9,40.2,40L1264.8,428.8z"/>
+		</g>
+	</g>
+</g>
+</svg>

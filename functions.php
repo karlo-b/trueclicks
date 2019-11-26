@@ -20,7 +20,7 @@ define( 'XT_CHILD_VERSION', '1.1' );
 
 add_action( 'after_setup_theme', 'thumb_theme_setup' );
 function thumb_theme_setup() {
-    add_image_size( 'video-thumb', 400, 225, true ); // (cropped)
+    add_image_size( 'blog-thumb', 600, 420, true ); // (cropped)
 }
 /**
  * Theme Setup
