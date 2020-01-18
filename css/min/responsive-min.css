@@ -735,6 +735,9 @@
   .post-content__sticky-social {
     transform: translate(-150px, 0px);
   }
+  h1 {
+    font-size: 30px;
+  }
 }
 
 /* Until 768 */

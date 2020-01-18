@@ -1,6 +1,159 @@
 jQuery(document).ready(function ($) {
-    var rangeSlider = document.getElementById('range-slider');
-    noUiSlider.create(rangeSlider, {
+    console.log(currencies);
+    var eur = currencies['eur'];
+    var gbp = currencies['gbp'];
+    var cad = currencies['cad'];
+    var aud = currencies['aud'];
+    var currentCurrency = $( "#currency_selector" ).val();
+
+    $( "#currency_selector" ).change(function() {
+       $('.xt-price-slider').hide();
+       currentCurrency = $(this).val();
+       console.log('.xt-'+currentCurrency);
+       $('.xt-'+currentCurrency).show();
+       sliderInit();
+    });
+    sliderInit();
+
+    function sliderInit(){
+    // EUR
+    if(currentCurrency == 'EUR'){
+    var rangeSliderEUR = document.getElementById('range-slider-eur');
+    noUiSlider.create(rangeSliderEUR, {
+        start: 1000,
+        connect: 'lower',
+        direction: 'ltr',
+        step: 1000,
+        snap: true,
+        format: wNumb({
+            decimals: 0,
+            prefix: '€',
+            mark: '.',
+            thousand: ',',
+        }),
+        range: {
+            'min': [5000],
+            '9%': [10000],
+            '18%': [25000],
+            '27%': [50000],
+            '36%': [100000],
+            '45%': [250000],
+            '55%': [500000],
+            '64%': [750000],
+            '73%': [1000000],
+            '82%': [2000000],
+            '91%': [3000000],
+            'max': [3500000],
+        },
+        tooltips: true,
+    });
+
+    rangeSliderEUR.noUiSlider.on('update', function (values, handle) {
+        var billedYearly = $('.billed-yearly');
+        var saveYearly = $('.save-yearly');
+        var yearlyPrice = $('.yearly-price');
+        var monthlyPrice = $('.monthly-price');
+
+        var moneyFormat = wNumb({
+            mark: '.',
+            thousand: ',',
+            prefix: '€',
+            decimals: 0,
+        });
+
+        //console.log(values[0]);
+        if (values[0] == '€5,000') {
+            billedYearly.html(moneyFormat.to(468 * eur));
+            saveYearly.html(moneyFormat.to(120 * eur));
+            yearlyPrice.html(moneyFormat.to(39 * eur));
+            monthlyPrice.html(moneyFormat.to(49 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€10,000') {
+            billedYearly.html(moneyFormat.to(756 * eur));
+            saveYearly.html(moneyFormat.to(192 * eur));
+            yearlyPrice.html(moneyFormat.to(63 * eur));
+            monthlyPrice.html(moneyFormat.to(79 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€25,000') {
+            billedYearly.html(moneyFormat.to(948 * eur));
+            saveYearly.html(moneyFormat.to(240 * eur));
+            yearlyPrice.html(moneyFormat.to(79 * eur));
+            monthlyPrice.html(moneyFormat.to(99 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€50,000') {
+            billedYearly.html(moneyFormat.to(1428 * eur));
+            saveYearly.html(moneyFormat.to(360 * eur));
+            yearlyPrice.html(moneyFormat.to(119 * eur));
+            monthlyPrice.html(moneyFormat.to(149 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€100,000') {
+            billedYearly.html(moneyFormat.to(2388 * eur));
+            saveYearly.html(moneyFormat.to(600 * eur));
+            yearlyPrice.html(moneyFormat.to(199 * eur));
+            monthlyPrice.html(moneyFormat.to(249 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€250,000') {
+            billedYearly.html(moneyFormat.to(3348 * eur));
+            saveYearly.html(moneyFormat.to(840 * eur));
+            yearlyPrice.html(moneyFormat.to(279 * eur));
+            monthlyPrice.html(moneyFormat.to(349 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€500,000') {
+            billedYearly.html(moneyFormat.to(4788 * eur));
+            saveYearly.html(moneyFormat.to(1200 * eur));
+            yearlyPrice.html(moneyFormat.to(399 * eur));
+            monthlyPrice.html(moneyFormat.to(499 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€750,000') {
+            billedYearly.html(moneyFormat.to(6708 * eur));
+            saveYearly.html(moneyFormat.to(1680 * eur));
+            yearlyPrice.html(moneyFormat.to(559 * eur));
+            monthlyPrice.html(moneyFormat.to(699 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€1,000,000') {
+            billedYearly.html(moneyFormat.to(8628 * eur));
+            saveYearly.html(moneyFormat.to(2160 * eur));
+            yearlyPrice.html(moneyFormat.to(719 * eur));
+            monthlyPrice.html(moneyFormat.to(899 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€2,000,000') {
+            billedYearly.html(moneyFormat.to(14388 * eur));
+            saveYearly.html(moneyFormat.to(3600 * eur));
+            yearlyPrice.html(moneyFormat.to(1199 * eur));
+            monthlyPrice.html(moneyFormat.to(1499 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€3,000,000') {
+            billedYearly.html(moneyFormat.to(19188 * eur));
+            saveYearly.html(moneyFormat.to(4800 * eur));
+            yearlyPrice.html(moneyFormat.to(1599 * eur));
+            monthlyPrice.html(moneyFormat.to(1999 * eur));
+            $('#range-slider-eur .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '€3,500,000') {
+            $('#range-slider-eur .noUi-tooltip').html('Above €3,000,000');
+            $('.xt-show-above').show();
+            $('.xt-hide-above').hide();
+
+        } else {
+            $('.xt-show-above').hide();
+            $('.xt-hide-above').show();
+        }
+    });
+    }
+    else if( currentCurrency == 'USD'){
+    //USD
+    var rangeSliderUSD = document.getElementById('range-slider-usd');
+    noUiSlider.create(rangeSliderUSD, {
         start: 1000,
         connect: 'lower',
         direction: 'ltr',
@@ -29,7 +182,7 @@ jQuery(document).ready(function ($) {
         tooltips: true,
     });
 
-    rangeSlider.noUiSlider.on('update', function (values, handle) {
+    rangeSliderUSD.noUiSlider.on('update', function (values, handle) {
         var billedYearly = $('.billed-yearly');
         var saveYearly = $('.save-yearly');
         var yearlyPrice = $('.yearly-price');
@@ -39,88 +192,89 @@ jQuery(document).ready(function ($) {
             mark: '.',
             thousand: ',',
             prefix: '$',
+            decimals: 0
         });
-
+    
         //console.log(values[0]);
         if (values[0] == '$5,000') {
             billedYearly.html(moneyFormat.to(468));
             saveYearly.html(moneyFormat.to(120));
             yearlyPrice.html(moneyFormat.to(39));
             monthlyPrice.html(moneyFormat.to(49));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$10,000') {
             billedYearly.html(moneyFormat.to(756));
             saveYearly.html(moneyFormat.to(192));
             yearlyPrice.html(moneyFormat.to(63));
             monthlyPrice.html(moneyFormat.to(79));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$25,000') {
             billedYearly.html(moneyFormat.to(948));
             saveYearly.html(moneyFormat.to(240));
             yearlyPrice.html(moneyFormat.to(79));
             monthlyPrice.html(moneyFormat.to(99));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$50,000') {
             billedYearly.html(moneyFormat.to(1428));
             saveYearly.html(moneyFormat.to(360));
             yearlyPrice.html(moneyFormat.to(119));
             monthlyPrice.html(moneyFormat.to(149));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$100,000') {
             billedYearly.html(moneyFormat.to(2388));
             saveYearly.html(moneyFormat.to(600));
             yearlyPrice.html(moneyFormat.to(199));
             monthlyPrice.html(moneyFormat.to(249));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$250,000') {
             billedYearly.html(moneyFormat.to(3348));
             saveYearly.html(moneyFormat.to(840));
             yearlyPrice.html(moneyFormat.to(279));
             monthlyPrice.html(moneyFormat.to(349));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$500,000') {
             billedYearly.html(moneyFormat.to(4788));
             saveYearly.html(moneyFormat.to(1200));
             yearlyPrice.html(moneyFormat.to(399));
             monthlyPrice.html(moneyFormat.to(499));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$750,000') {
             billedYearly.html(moneyFormat.to(6708));
             saveYearly.html(moneyFormat.to(1680));
             yearlyPrice.html(moneyFormat.to(559));
             monthlyPrice.html(moneyFormat.to(699));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$1,000,000') {
             billedYearly.html(moneyFormat.to(8628));
             saveYearly.html(moneyFormat.to(2160));
             yearlyPrice.html(moneyFormat.to(719));
             monthlyPrice.html(moneyFormat.to(899));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$2,000,000') {
             billedYearly.html(moneyFormat.to(14388));
             saveYearly.html(moneyFormat.to(3600));
             yearlyPrice.html(moneyFormat.to(1199));
             monthlyPrice.html(moneyFormat.to(1499));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$3,000,000') {
             billedYearly.html(moneyFormat.to(19188));
             saveYearly.html(moneyFormat.to(4800));
             yearlyPrice.html(moneyFormat.to(1599));
             monthlyPrice.html(moneyFormat.to(1999));
-            $('.noUi-tooltip').prepend('Up to ');
+            $('#range-slider-usd .noUi-tooltip').prepend('Up to ');
         }
         if (values[0] == '$3,500,000') {
-            $('.noUi-tooltip').html('Above $3,000,000');
+            $('#range-slider-usd .noUi-tooltip').html('Above $3,000,000');
             $('.xt-show-above').show();
             $('.xt-hide-above').hide();
 
@@ -129,6 +283,417 @@ jQuery(document).ready(function ($) {
             $('.xt-hide-above').show();
         }
     });
+}
+// GBP
+else if( currentCurrency == 'GBP'){
+    //USD
+    var rangeSliderGBP = document.getElementById('range-slider-gbp');
+    noUiSlider.create(rangeSliderGBP, {
+        start: 1000,
+        connect: 'lower',
+        direction: 'ltr',
+        step: 1000,
+        snap: true,
+        format: wNumb({
+            decimals: 0,
+            prefix: '£',
+            mark: '.',
+            thousand: ',',
+        }),
+        range: {
+            'min': [5000],
+            '9%': [10000],
+            '18%': [25000],
+            '27%': [50000],
+            '36%': [100000],
+            '45%': [250000],
+            '55%': [500000],
+            '64%': [750000],
+            '73%': [1000000],
+            '82%': [2000000],
+            '91%': [3000000],
+            'max': [3500000],
+        },
+        tooltips: true,
+    });
+
+    rangeSliderGBP.noUiSlider.on('update', function (values, handle) {
+        var billedYearly = $('.billed-yearly');
+        var saveYearly = $('.save-yearly');
+        var yearlyPrice = $('.yearly-price');
+        var monthlyPrice = $('.monthly-price');
+
+        var moneyFormat = wNumb({
+            mark: '.',
+            thousand: ',',
+            prefix: '£',
+            decimals: 0
+        });
+        //console.log(values[0]);
+        if (values[0] == '£5,000') {
+            billedYearly.html(moneyFormat.to(468 * gbp));
+            saveYearly.html(moneyFormat.to(120 * gbp));
+            yearlyPrice.html(moneyFormat.to(39 * gbp));
+            monthlyPrice.html(moneyFormat.to(49 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£10,000') {
+            billedYearly.html(moneyFormat.to(756 * gbp));
+            saveYearly.html(moneyFormat.to(192 * gbp));
+            yearlyPrice.html(moneyFormat.to(63 * gbp));
+            monthlyPrice.html(moneyFormat.to(79 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£25,000') {
+            billedYearly.html(moneyFormat.to(948 * gbp));
+            saveYearly.html(moneyFormat.to(240 * gbp));
+            yearlyPrice.html(moneyFormat.to(79 * gbp));
+            monthlyPrice.html(moneyFormat.to(99 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£50,000') {
+            billedYearly.html(moneyFormat.to(1428 * gbp));
+            saveYearly.html(moneyFormat.to(360 * gbp));
+            yearlyPrice.html(moneyFormat.to(119 * gbp));
+            monthlyPrice.html(moneyFormat.to(149 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£100,000') {
+            billedYearly.html(moneyFormat.to(2388 * gbp));
+            saveYearly.html(moneyFormat.to(600 * gbp));
+            yearlyPrice.html(moneyFormat.to(199 * gbp));
+            monthlyPrice.html(moneyFormat.to(249 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£250,000') {
+            billedYearly.html(moneyFormat.to(3348 * gbp));
+            saveYearly.html(moneyFormat.to(840 * gbp));
+            yearlyPrice.html(moneyFormat.to(279 * gbp));
+            monthlyPrice.html(moneyFormat.to(349 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£500,000') {
+            billedYearly.html(moneyFormat.to(4788 * gbp));
+            saveYearly.html(moneyFormat.to(1200 * gbp));
+            yearlyPrice.html(moneyFormat.to(399 * gbp));
+            monthlyPrice.html(moneyFormat.to(499 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£750,000') {
+            billedYearly.html(moneyFormat.to(6708 * gbp));
+            saveYearly.html(moneyFormat.to(1680 * gbp));
+            yearlyPrice.html(moneyFormat.to(559 * gbp));
+            monthlyPrice.html(moneyFormat.to(699 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£1,000,000') {
+            billedYearly.html(moneyFormat.to(8628 * gbp));
+            saveYearly.html(moneyFormat.to(2160 * gbp));
+            yearlyPrice.html(moneyFormat.to(719 * gbp));
+            monthlyPrice.html(moneyFormat.to(899 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£2,000,000') {
+            billedYearly.html(moneyFormat.to(14388 * gbp));
+            saveYearly.html(moneyFormat.to(3600 * gbp));
+            yearlyPrice.html(moneyFormat.to(1199 * gbp));
+            monthlyPrice.html(moneyFormat.to(1499 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£3,000,000') {
+            billedYearly.html(moneyFormat.to(19188 * gbp));
+            saveYearly.html(moneyFormat.to(4800 * gbp));
+            yearlyPrice.html(moneyFormat.to(1599 * gbp));
+            monthlyPrice.html(moneyFormat.to(1999 * gbp));
+            $('#range-slider-gbp .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == '£3,500,000') {
+            $('#range-slider-gbp .noUi-tooltip').html('Above £3,000,000');
+            $('.xt-show-above').show();
+            $('.xt-hide-above').hide();
+
+        } else {
+            $('.xt-show-above').hide();
+            $('.xt-hide-above').show();
+        }
+    });
+}
+
+
+// AUD
+else if( currentCurrency == 'AUD'){
+    //USD
+    var rangeSliderAUD = document.getElementById('range-slider-aud');
+    noUiSlider.create(rangeSliderAUD, {
+        start: 1000,
+        connect: 'lower',
+        direction: 'ltr',
+        step: 1000,
+        snap: true,
+        format: wNumb({
+            decimals: 0,
+            prefix: 'A$',
+            mark: '.',
+            thousand: ',',
+        }),
+        range: {
+            'min': [5000],
+            '9%': [10000],
+            '18%': [25000],
+            '27%': [50000],
+            '36%': [100000],
+            '45%': [250000],
+            '55%': [500000],
+            '64%': [750000],
+            '73%': [1000000],
+            '82%': [2000000],
+            '91%': [3000000],
+            'max': [3500000],
+        },
+        tooltips: true,
+    });
+
+    rangeSliderAUD.noUiSlider.on('update', function (values, handle) {
+        var billedYearly = $('.billed-yearly');
+        var saveYearly = $('.save-yearly');
+        var yearlyPrice = $('.yearly-price');
+        var monthlyPrice = $('.monthly-price');
+
+        var moneyFormat = wNumb({
+            mark: '.',
+            thousand: ',',
+            prefix: 'A$',
+            decimals: 0
+        });
+
+        //console.log(values[0]);
+        if (values[0] == 'A$5,000') {
+            billedYearly.html(moneyFormat.to(468 * aud));
+            saveYearly.html(moneyFormat.to(120 * aud));
+            yearlyPrice.html(moneyFormat.to(39 * aud));
+            monthlyPrice.html(moneyFormat.to(49 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$10,000') {
+            billedYearly.html(moneyFormat.to(756 * aud));
+            saveYearly.html(moneyFormat.to(192 * aud));
+            yearlyPrice.html(moneyFormat.to(63 * aud));
+            monthlyPrice.html(moneyFormat.to(79 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$25,000') {
+            billedYearly.html(moneyFormat.to(948 * aud));
+            saveYearly.html(moneyFormat.to(240 * aud));
+            yearlyPrice.html(moneyFormat.to(79 * aud));
+            monthlyPrice.html(moneyFormat.to(99 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$50,000') {
+            billedYearly.html(moneyFormat.to(1428 * aud));
+            saveYearly.html(moneyFormat.to(360 * aud));
+            yearlyPrice.html(moneyFormat.to(119 * aud));
+            monthlyPrice.html(moneyFormat.to(149 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$100,000') {
+            billedYearly.html(moneyFormat.to(2388 * aud));
+            saveYearly.html(moneyFormat.to(600 * aud));
+            yearlyPrice.html(moneyFormat.to(199 * aud));
+            monthlyPrice.html(moneyFormat.to(249 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$250,000') {
+            billedYearly.html(moneyFormat.to(3348 * aud));
+            saveYearly.html(moneyFormat.to(840 * aud));
+            yearlyPrice.html(moneyFormat.to(279 * aud));
+            monthlyPrice.html(moneyFormat.to(349 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$500,000') {
+            billedYearly.html(moneyFormat.to(4788 * aud));
+            saveYearly.html(moneyFormat.to(1200 * aud));
+            yearlyPrice.html(moneyFormat.to(399 * aud));
+            monthlyPrice.html(moneyFormat.to(499 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$750,000') {
+            billedYearly.html(moneyFormat.to(6708 * aud));
+            saveYearly.html(moneyFormat.to(1680 * aud));
+            yearlyPrice.html(moneyFormat.to(559 * aud));
+            monthlyPrice.html(moneyFormat.to(699 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$1,000,000') {
+            billedYearly.html(moneyFormat.to(8628 * aud));
+            saveYearly.html(moneyFormat.to(2160 * aud));
+            yearlyPrice.html(moneyFormat.to(719 * aud));
+            monthlyPrice.html(moneyFormat.to(899 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$2,000,000') {
+            billedYearly.html(moneyFormat.to(14388 * aud));
+            saveYearly.html(moneyFormat.to(3600 * aud));
+            yearlyPrice.html(moneyFormat.to(1199 * aud));
+            monthlyPrice.html(moneyFormat.to(1499 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$3,000,000') {
+            billedYearly.html(moneyFormat.to(19188 * aud));
+            saveYearly.html(moneyFormat.to(4800 * aud));
+            yearlyPrice.html(moneyFormat.to(1599 * aud));
+            monthlyPrice.html(moneyFormat.to(1999 * aud));
+            $('#range-slider-aud .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'A$3,500,000') {
+            $('#range-slider-aud .noUi-tooltip').html('Above A$3,000,000');
+            $('.xt-show-above').show();
+            $('.xt-hide-above').hide();
+
+        } else {
+            $('.xt-show-above').hide();
+            $('.xt-hide-above').show();
+        }
+    });
+}
+
+
+// CAD
+
+else if( currentCurrency == 'CAD'){
+    //USD
+    var rangeSliderCAD = document.getElementById('range-slider-cad');
+    noUiSlider.create(rangeSliderCAD, {
+        start: 1000,
+        connect: 'lower',
+        direction: 'ltr',
+        step: 1000,
+        snap: true,
+        format: wNumb({
+            decimals: 0,
+            prefix: 'C$',
+            mark: '.',
+            thousand: ',',
+        }),
+        range: {
+            'min': [5000],
+            '9%': [10000],
+            '18%': [25000],
+            '27%': [50000],
+            '36%': [100000],
+            '45%': [250000],
+            '55%': [500000],
+            '64%': [750000],
+            '73%': [1000000],
+            '82%': [2000000],
+            '91%': [3000000],
+            'max': [3500000],
+        },
+        tooltips: true,
+    });
+
+    rangeSliderCAD.noUiSlider.on('update', function (values, handle) {
+        var billedYearly = $('.billed-yearly');
+        var saveYearly = $('.save-yearly');
+        var yearlyPrice = $('.yearly-price');
+        var monthlyPrice = $('.monthly-price');
+
+        var moneyFormat = wNumb({
+            mark: '.',
+            thousand: ',',
+            prefix: 'C$',
+            decimals: 0,
+        });
+
+        //console.log(values[0]);
+        if (values[0] == 'C$5,000') {
+            billedYearly.html(moneyFormat.to(468 * cad));
+            saveYearly.html(moneyFormat.to(120 * cad));
+            yearlyPrice.html(moneyFormat.to(39 * cad));
+            monthlyPrice.html(moneyFormat.to(49 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$10,000') {
+            billedYearly.html(moneyFormat.to(756 * cad));
+            saveYearly.html(moneyFormat.to(192 * cad));
+            yearlyPrice.html(moneyFormat.to(63 * cad));
+            monthlyPrice.html(moneyFormat.to(79 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$25,000') {
+            billedYearly.html(moneyFormat.to(948 * cad));
+            saveYearly.html(moneyFormat.to(240 * cad));
+            yearlyPrice.html(moneyFormat.to(79 * cad));
+            monthlyPrice.html(moneyFormat.to(99 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$50,000') {
+            billedYearly.html(moneyFormat.to(1428 * cad));
+            saveYearly.html(moneyFormat.to(360 * cad));
+            yearlyPrice.html(moneyFormat.to(119 * cad));
+            monthlyPrice.html(moneyFormat.to(149 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$100,000') {
+            billedYearly.html(moneyFormat.to(2388 * cad));
+            saveYearly.html(moneyFormat.to(600 * cad));
+            yearlyPrice.html(moneyFormat.to(199 * cad));
+            monthlyPrice.html(moneyFormat.to(249 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$250,000') {
+            billedYearly.html(moneyFormat.to(3348 * cad));
+            saveYearly.html(moneyFormat.to(840 * cad));
+            yearlyPrice.html(moneyFormat.to(279 * cad));
+            monthlyPrice.html(moneyFormat.to(349 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$500,000') {
+            billedYearly.html(moneyFormat.to(4788 * cad));
+            saveYearly.html(moneyFormat.to(1200 * cad));
+            yearlyPrice.html(moneyFormat.to(399 * cad));
+            monthlyPrice.html(moneyFormat.to(499 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$750,000') {
+            billedYearly.html(moneyFormat.to(6708 * cad));
+            saveYearly.html(moneyFormat.to(1680 * cad));
+            yearlyPrice.html(moneyFormat.to(559 * cad));
+            monthlyPrice.html(moneyFormat.to(699 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$1,000,000') {
+            billedYearly.html(moneyFormat.to(8628 * cad));
+            saveYearly.html(moneyFormat.to(2160 * cad));
+            yearlyPrice.html(moneyFormat.to(719 * cad));
+            monthlyPrice.html(moneyFormat.to(899 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$2,000,000') {
+            billedYearly.html(moneyFormat.to(14388 * cad));
+            saveYearly.html(moneyFormat.to(3600 * cad));
+            yearlyPrice.html(moneyFormat.to(1199 * cad));
+            monthlyPrice.html(moneyFormat.to(1499 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$3,000,000') {
+            billedYearly.html(moneyFormat.to(19188 * cad));
+            saveYearly.html(moneyFormat.to(4800 * cad));
+            yearlyPrice.html(moneyFormat.to(1599 * cad));
+            monthlyPrice.html(moneyFormat.to(1999 * cad));
+            $('#range-slider-cad .noUi-tooltip').prepend('Up to ');
+        }
+        if (values[0] == 'C$3,500,000') {
+            $('#range-slider-cad .noUi-tooltip').html('Above C$3,000,000');
+            $('.xt-show-above').show();
+            $('.xt-hide-above').hide();
+
+        } else {
+            $('.xt-show-above').hide();
+            $('.xt-hide-above').show();
+        }
+    });
+}
+}
 });
 
 (function (factory) {
